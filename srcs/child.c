@@ -4,31 +4,27 @@
 #include <unistd.h> // voor fork
 #include "../includes/pipex.h"
 
-
-void	grand_child(t_data *data)
+void	grand_child(t_data *data, char *envp[], char *argv[])
 {
+	// hoe kom ik nu bij die envp en argv argumenten?
 	printf("hello from grand child\n");
 }
 
-void	child_process(t_data *data)
+void	child_process(t_data *data, char *envp[], char *argv[])
 {
-	int pipe[2];
 	pid_t	id;
 
 	id = fork();
 	if (id == 0)
 	{
-		if (pipe(pipe) == -1)
-		{
-			ft_printf("there was an error with the pipe");
-		}
-		/* ik begrijp nog steeds niet eens helemaal waarom ik een pipe nodig heb...: waarom?
-		   we hebben 2/3 processen en het ene proces gaat uitmonden in het eerste uit te voeren commando, en de output daarvan moet de input worden van het tweede proces dat gaat uitmonden in het tweede uit te voeren commando. */
-		grand_child(data);
+		grand_child(data, envp, argv);
 	}
 	else
 	{
 		wait(NULL);
-		printf("hello from child\n");
+		close(data->end[0]);
+		write(data->end[1], "bye", 4);
+		// wat is er nu de bedoeling? dat een commando binnen komt en uitgevoerd wordt in het grand child
+//		printf("hello from child\n");
 	}
 }

@@ -1,0 +1,3 @@
+[submodule "srcs/libftprintf"]
+	path = srcs/libftprintf
+	url = https://github.com/jvankrieken/libftprintf
