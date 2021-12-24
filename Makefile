@@ -1,6 +1,6 @@
 NAME = pipex
 
-C_FILES = main.c child.c
+C_FILES = main.c children.c parse.c error.c
 
 OBJ_FILES = $(addprefix $(OBJ_DIR)/, $(C_FILES:.c=.o))
 
