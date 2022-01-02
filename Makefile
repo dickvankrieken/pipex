@@ -10,7 +10,7 @@ OBJ_DIR = objs
 
 LIBFT = srcs/libftprintf/libft.a
 
-# CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra
 
 all: $(NAME)
 
@@ -27,11 +27,11 @@ $(LIBFT):
 	make -C srcs/libftprintf
 
 clean:
-	rm -r $(OBJ_DIR)
-#	make clean -C srcs/libftprintf
+	rm -rf $(OBJ_DIR)
+	make clean -C srcs/libftprintf
 
 fclean: clean
-	rm $(NAME)
-#	make fclean -C srcs/libftprintf
+	rm -f $(NAME)
+	make fclean -C srcs/libftprintf
 
 re: fclean all
