@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   parse.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: dvan-kri <dvan-kri@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/01/03 15:59:20 by dvan-kri      #+#    #+#                 */
+/*   Updated: 2022/01/03 15:59:21 by dvan-kri      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/pipex.h"
 #include "./libftprintf/includes/libft.h"
 #include "./libftprintf/includes/ft_printf.h"
 #include <stdlib.h>
 #include <unistd.h>
 
-static char	*check_cmd_paths(char *argv, char **path_directories)
+static char	*check_cmd_paths(t_data *data, char *argv, char **path_directories)
 {
 	char	*path;
 	char	*path_cmd;
@@ -15,12 +27,12 @@ static char	*check_cmd_paths(char *argv, char **path_directories)
 	{
 		path = ft_strjoin(path_directories[i], "/");
 		if (!path)
-			error_handler("Malloc error");
+			error_handler("Malloc error", data);
 		free(path_directories[i]);
 		path_cmd = ft_strjoin(path, argv);
 		free(path);
 		if (!path_cmd)
-			error_handler("Malloc error");
+			error_handler("Malloc error", data);
 		if (access(path_cmd, F_OK) == 0)
 			return (path_cmd);
 		free(path_cmd);
@@ -29,7 +41,7 @@ static char	*check_cmd_paths(char *argv, char **path_directories)
 	return (NULL);
 }
 
-static char	*get_cmd_path(char *envp[], char *argv)
+static char	*get_cmd_path(t_data *data, char *envp[], char *argv)
 {
 	int		i;
 	char	**path_directories;
@@ -46,7 +58,7 @@ static char	*get_cmd_path(char *envp[], char *argv)
 		}
 		i++;
 	}
-	path = check_cmd_paths(argv, path_directories);
+	path = check_cmd_paths(data, argv, path_directories);
 	return (path);
 }
 
@@ -57,17 +69,18 @@ void	get_commands(char *argv[], char *envp[], t_data *data)
 		exit(1);
 	data->cmd2_options = ft_split(argv[3], ' ');
 	if (data->cmd2_options == NULL)
-		exit(1);
-	data->cmd1 = get_cmd_path(envp, data->cmd1_options[0]);
+		free_cmd1_options_and_exit(data->cmd1_options);
+	data->cmd1 = get_cmd_path(data, envp, data->cmd1_options[0]);
 	if (data->cmd1 == NULL)
 	{
 		ft_printf("pipex: command not found: %s\n", argv[2]);
 		data->exit_code = 0;
 	}
-	data->cmd2 = get_cmd_path(envp, data->cmd2_options[0]);
+	data->cmd2 = get_cmd_path(data, envp, data->cmd2_options[0]);
 	if (data->cmd2 == NULL)
 	{
 		ft_printf("pipex: command not found: %s\n", argv[3]);
+		free_cmd12optionscmd1(data);
 		exit(127);
 	}
 }
