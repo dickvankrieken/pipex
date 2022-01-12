@@ -6,7 +6,7 @@
 /*   By: dvan-kri <dvan-kri@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/03 15:58:26 by dvan-kri      #+#    #+#                 */
-/*   Updated: 2022/01/03 15:58:27 by dvan-kri      ########   odam.nl         */
+/*   Updated: 2022/01/12 10:50:56 by dvan-kri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ typedef struct s_data {
 void	error_handler(char *message, t_data *data);
 // parse.c
 void	get_commands(char *argv[], char *envp[], t_data *data);
-void	get_options(char *argv[], t_data *data);
 // children.c
 void	child_one(pid_t child1, t_data *data, char *envp[], char *argv[]);
 void	child_two(pid_t child2, t_data *data, char *envp[], char *argv[]);

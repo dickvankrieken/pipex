@@ -6,7 +6,7 @@
 /*   By: dvan-kri <dvan-kri@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/03 15:59:20 by dvan-kri      #+#    #+#                 */
-/*   Updated: 2022/01/03 15:59:21 by dvan-kri      ########   odam.nl         */
+/*   Updated: 2022/01/12 10:49:52 by dvan-kri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,21 @@ static char	*check_cmd_paths(t_data *data, char *argv, char **path_directories)
 			error_handler("Malloc error", data);
 		free(path_directories[i]);
 		path_cmd = ft_strjoin(path, argv);
+		if (!path_cmd)
+			error_handler("Malloc error", data);
 		free(path);
 		if (!path_cmd)
 			error_handler("Malloc error", data);
 		if (access(path_cmd, F_OK) == 0)
+		{
+			i++;
+			while (path_directories[i])
+			{
+				free(path_directories[i]);
+				i++;
+			}
 			return (path_cmd);
+		}
 		free(path_cmd);
 		i++;
 	}
@@ -45,7 +55,7 @@ static char	*get_cmd_path(t_data *data, char *envp[], char *argv)
 {
 	int		i;
 	char	**path_directories;
-	char	*path;
+	char	*path = NULL;
 
 	i = 0;
 	path_directories = NULL;
@@ -71,6 +81,7 @@ void	get_commands(char *argv[], char *envp[], t_data *data)
 	if (data->cmd2_options == NULL)
 		free_cmd1_options_and_exit(data->cmd1_options);
 	data->cmd1 = get_cmd_path(data, envp, data->cmd1_options[0]);
+	system("leaks pipex");
 	if (data->cmd1 == NULL)
 	{
 		ft_printf("pipex: command not found: %s\n", argv[2]);
