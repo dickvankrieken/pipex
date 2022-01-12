@@ -6,7 +6,7 @@
 /*   By: dvan-kri <dvan-kri@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/03 15:58:41 by dvan-kri      #+#    #+#                 */
-/*   Updated: 2022/01/10 11:36:05 by dvan-kri         ###   ########.fr       */
+/*   Updated: 2022/01/12 11:20:41 by dvan-kri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <fcntl.h>
 #include <sys/types.h>
 #include "../includes/pipex.h"
-#include "../srcs/libftprintf/includes/ft_printf.h"
+#include "../libftprintf/includes/ft_printf.h"
 
 static void	open_files(char *argv[], t_data *data)
 {

@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   children.c                                         :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: dvan-kri <dvan-kri@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/01/03 15:59:31 by dvan-kri      #+#    #+#                 */
-/*   Updated: 2022/01/03 15:59:32 by dvan-kri      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   children.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dvan-kri <dvan-kri@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/12 11:21:12 by dvan-kri          #+#    #+#             */
+/*   Updated: 2022/01/12 11:21:16 by dvan-kri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sys/types.h>
 #include <unistd.h>
 #include "../includes/pipex.h"
-#include "./libftprintf/includes/libft.h"
+#include "../libftprintf/includes/libft.h"
 
 void	child_two(pid_t child2, t_data *data, char *envp[], char *argv[])
 {

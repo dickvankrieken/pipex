@@ -6,13 +6,13 @@
 /*   By: dvan-kri <dvan-kri@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/03 15:59:20 by dvan-kri      #+#    #+#                 */
-/*   Updated: 2022/01/12 10:49:52 by dvan-kri         ###   ########.fr       */
+/*   Updated: 2022/01/12 11:20:27 by dvan-kri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
-#include "./libftprintf/includes/libft.h"
-#include "./libftprintf/includes/ft_printf.h"
+#include "../libftprintf/includes/libft.h"
+#include "../libftprintf/includes/ft_printf.h"
 #include <stdlib.h>
 #include <unistd.h>
 
