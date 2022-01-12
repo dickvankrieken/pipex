@@ -6,7 +6,7 @@
 /*   By: dvan-kri <dvan-kri@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/03 15:59:20 by dvan-kri      #+#    #+#                 */
-/*   Updated: 2022/01/12 11:37:25 by dvan-kri         ###   ########.fr       */
+/*   Updated: 2022/01/12 12:34:26 by dvan-kri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,17 @@
 #include "../libftprintf/includes/ft_printf.h"
 #include <stdlib.h>
 #include <unistd.h>
+
+static void	free_path_directories(char **path_directories, int i)
+{
+	i++;
+	while (path_directories[i])
+	{
+		free(path_directories[i]);
+		i++;
+	}
+	free(path_directories);
+}
 
 static char	*check_cmd_paths(t_data *data, char *argv, char **path_directories)
 {
@@ -35,12 +46,7 @@ static char	*check_cmd_paths(t_data *data, char *argv, char **path_directories)
 		free(path);
 		if (access(path_cmd, F_OK) == 0)
 		{
-			i++;
-			while (path_directories[i])
-			{
-				free(path_directories[i]);
-				i++;
-			}
+			free_path_directories(path_directories, i);
 			return (path_cmd);
 		}
 		free(path_cmd);
@@ -53,7 +59,7 @@ static char	*get_cmd_path(t_data *data, char *envp[], char *argv)
 {
 	int		i;
 	char	**path_directories;
-	char	*path = NULL;
+	char	*path;
 
 	i = 0;
 	path_directories = NULL;
@@ -79,7 +85,6 @@ void	get_commands(char *argv[], char *envp[], t_data *data)
 	if (data->cmd2_options == NULL)
 		free_cmd1_options_and_exit(data->cmd1_options);
 	data->cmd1 = get_cmd_path(data, envp, data->cmd1_options[0]);
-	system("leaks pipex");
 	if (data->cmd1 == NULL)
 	{
 		ft_printf("pipex: command not found: %s\n", argv[2]);
