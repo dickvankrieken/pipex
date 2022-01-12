@@ -6,7 +6,7 @@
 /*   By: dvan-kri <dvan-kri@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/03 15:59:20 by dvan-kri      #+#    #+#                 */
-/*   Updated: 2022/01/12 11:20:27 by dvan-kri         ###   ########.fr       */
+/*   Updated: 2022/01/12 11:37:25 by dvan-kri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ static char	*check_cmd_paths(t_data *data, char *argv, char **path_directories)
 		if (!path_cmd)
 			error_handler("Malloc error", data);
 		free(path);
-		if (!path_cmd)
-			error_handler("Malloc error", data);
 		if (access(path_cmd, F_OK) == 0)
 		{
 			i++;
