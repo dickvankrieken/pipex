@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   children.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dvan-kri <dvan-kri@student.codam.nl>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/12 11:21:12 by dvan-kri          #+#    #+#             */
-/*   Updated: 2022/01/12 11:21:16 by dvan-kri         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   children.c                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: dvan-kri <dvan-kri@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/01/12 11:21:12 by dvan-kri      #+#    #+#                 */
+/*   Updated: 2022/01/13 11:56:36 by dvan-kri      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	child_two(pid_t child2, t_data *data, char *envp[], char *argv[])
 		if (dup2(data->fd1, STDIN_FILENO) == -1
 			|| dup2(data->end[1], STDOUT_FILENO) == -1)
 			error_handler("Dup2 error", data);
-		if (close(data->end[0]) == -1)
+		if (close(data->end[0]) == -1 || close(data->fd2))
 			return (error_handler("Close error", data));
 		if (execve(data->cmd1, data->cmd1_options, envp) == -1)
 			error_handler("Execve error", data);
@@ -52,7 +52,7 @@ void	child_one(pid_t child1, t_data *data, char *envp[], char *argv[])
 		if (dup2(data->fd2, STDOUT_FILENO) == -1
 			|| dup2(data->end[0], STDIN_FILENO) == -1)
 			error_handler("Dup2 error", data);
-		if (close(data->end[1]) == -1)
+		if (close(data->end[1]) == -1 || close(data->fd1))
 			return (error_handler("Close error", data));
 		if (execve(data->cmd2, data->cmd2_options, envp) == -1)
 			error_handler("Execve error", data);
