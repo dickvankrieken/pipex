@@ -6,16 +6,14 @@
 /*   By: dvan-kri <dvan-kri@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/03 15:58:41 by dvan-kri      #+#    #+#                 */
-/*   Updated: 2022/01/12 12:42:56 by dvan-kri         ###   ########.fr       */
+/*   Updated: 2022/01/13 12:40:21 by dvan-kri      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <unistd.h>
-#include <sys/wait.h>
 #include <stdlib.h>
 #include <fcntl.h>
-#include <sys/types.h>
 #include "../includes/pipex.h"
 #include "../libftprintf/includes/ft_printf.h"
 
@@ -37,7 +35,7 @@ static void	exit_status(int status, t_data *data)
 	status_code = WEXITSTATUS(status);
 	free_all(data);
 	exit(status_code);
-	}
+}
 
 static void	pipe_and_forks(char *argv[], char *envp[], t_data *data)
 {
@@ -59,7 +57,7 @@ static void	pipe_and_forks(char *argv[], char *envp[], t_data *data)
 		exit_status(status, data);
 	waitpid(child2, &status, 0);
 	if (WIFEXITED(status) == 0)
-	exit_status(status, data);
+		exit_status(status, data);
 }
 
 static int	pipex(char *argv[], char *envp[])
