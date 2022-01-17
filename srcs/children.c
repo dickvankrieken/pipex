@@ -6,7 +6,7 @@
 /*   By: dvan-kri <dvan-kri@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/12 11:21:12 by dvan-kri      #+#    #+#                 */
-/*   Updated: 2022/01/13 11:56:36 by dvan-kri      ########   odam.nl         */
+/*   Updated: 2022/01/15 10:21:53 by dvan-kri      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,12 @@
 #include "../includes/pipex.h"
 #include "../libftprintf/includes/libft.h"
 
-void	child_two(pid_t child2, t_data *data, char *envp[], char *argv[])
+void	child_two(pid_t child2, t_data *data, char *envp[])
 {
 	if (child2 < 0)
 		error_handler("Fork error", data);
 	if (child2 == 0)
 	{
-		if (ft_strlen(argv[3]) == 0)
-		{
-			ft_putstr_fd("./pipex: command not found", 1);
-			free_all(data);
-			exit(127);
-		}
 		if (dup2(data->fd1, STDIN_FILENO) == -1
 			|| dup2(data->end[1], STDOUT_FILENO) == -1)
 			error_handler("Dup2 error", data);
@@ -37,18 +31,12 @@ void	child_two(pid_t child2, t_data *data, char *envp[], char *argv[])
 	}
 }
 
-void	child_one(pid_t child1, t_data *data, char *envp[], char *argv[])
+void	child_one(pid_t child1, t_data *data, char *envp[])
 {
 	if (child1 < 0)
 		error_handler("Fork error", data);
 	if (child1 == 0)
 	{
-		if (ft_strlen(argv[3]) == 0)
-		{
-			ft_putstr_fd("./pipex: command not found", 1);
-			free_all(data);
-			exit(127);
-		}
 		if (dup2(data->fd2, STDOUT_FILENO) == -1
 			|| dup2(data->end[0], STDIN_FILENO) == -1)
 			error_handler("Dup2 error", data);
