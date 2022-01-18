@@ -6,7 +6,7 @@
 /*   By: dvan-kri <dvan-kri@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/03 15:58:26 by dvan-kri      #+#    #+#                 */
-/*   Updated: 2022/01/15 09:56:12 by dvan-kri      ########   odam.nl         */
+/*   Updated: 2022/01/18 14:30:30 by dvan-kri      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ typedef struct s_data {
 	char	**cmd1_options;
 	char	**cmd2_options;
 	int		end[2];
-	int		exit_code;
 }	t_data;
 
 // utils.c
