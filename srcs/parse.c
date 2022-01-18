@@ -6,7 +6,7 @@
 /*   By: dvan-kri <dvan-kri@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/03 15:59:20 by dvan-kri      #+#    #+#                 */
-/*   Updated: 2022/01/15 10:18:07 by dvan-kri      ########   odam.nl         */
+/*   Updated: 2022/01/18 13:30:30 by dvan-kri      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ void	get_commands(char *argv[], char *envp[], t_data *data)
 	if (data->cmd1 == NULL)
 	{
 		ft_printf("pipex: command not found: %s\n", argv[2]);
-		exit(127);
 	}
 	data->cmd2 = get_cmd_path(data, envp, data->cmd2_options[0]);
 	if (data->cmd2 == NULL)
