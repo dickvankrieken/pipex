@@ -6,7 +6,7 @@
 /*   By: dvan-kri <dvan-kri@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/15 09:59:15 by dvan-kri      #+#    #+#                 */
-/*   Updated: 2022/01/15 10:02:29 by dvan-kri      ########   odam.nl         */
+/*   Updated: 2022/01/18 14:42:04 by dvan-kri      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	open_files(char *argv[], t_data *data)
 
 void	init_data(t_data *data)
 {
-	data->exit_code = 0;
 	data->cmd1 = NULL;
 	data->cmd2 = NULL;
 	data->cmd1_options = NULL;
