@@ -6,7 +6,7 @@
 /*   By: dvan-kri <dvan-kri@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/03 15:58:41 by dvan-kri      #+#    #+#                 */
-/*   Updated: 2022/01/18 13:31:39 by dvan-kri      ########   odam.nl         */
+/*   Updated: 2022/01/20 10:19:42 by dvan-kri      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,12 @@ static int	pipex(char *argv[], char *envp[])
 
 int	main(int argc, char *argv[], char *envp[])
 {
-	int	exit_code;
-
-	exit_code = 0;
 	if (argc == 5)
-		exit_code = pipex(argv, envp);
+		pipex(argv, envp);
 	else
 	{
 		ft_printf("Usage: '>./pipex file1 cmd1 cmd2 file2'.\n");
 		exit(1);
 	}
-	exit(exit_code);
+	exit(0);
 }
