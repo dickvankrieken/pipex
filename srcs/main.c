@@ -6,7 +6,7 @@
 /*   By: dvan-kri <dvan-kri@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/03 15:58:41 by dvan-kri      #+#    #+#                 */
-/*   Updated: 2022/01/20 10:19:42 by dvan-kri      ########   odam.nl         */
+/*   Updated: 2022/01/21 10:15:57 by dvan-kri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	exit_status(int status, t_data *data)
 	exit(status_code);
 }
 
-static void	pipe_and_forks(char *argv[], char *envp[], t_data *data)
+static void	pipe_and_forks(char *envp[], t_data *data)
 {
 	pid_t	child1;
 	pid_t	child2;
@@ -33,7 +33,6 @@ static void	pipe_and_forks(char *argv[], char *envp[], t_data *data)
 
 	if (pipe(data->end) == -1)
 		error_handler("Pipe error", data);
-	get_commands(argv, envp, data);
 	child1 = fork();
 	child_one(child1, data, envp);
 	child2 = fork();
@@ -54,7 +53,8 @@ static int	pipex(char *argv[], char *envp[])
 
 	init_data(&data);
 	open_files(argv, &data);
-	pipe_and_forks(argv, envp, &data);
+	get_commands(argv, envp, &data);
+	pipe_and_forks(envp, &data);
 	free_all(&data);
 	return (0);
 }
