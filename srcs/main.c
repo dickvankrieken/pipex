@@ -6,7 +6,7 @@
 /*   By: dvan-kri <dvan-kri@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/03 15:58:41 by dvan-kri      #+#    #+#                 */
-/*   Updated: 2022/01/21 10:15:57 by dvan-kri         ###   ########.fr       */
+/*   Updated: 2022/01/24 12:57:57 by dvan-kri      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	pipe_and_forks(char *envp[], t_data *data)
 		exit_status(status, data);
 }
 
-static int	pipex(char *argv[], char *envp[])
+static void	pipex(char *argv[], char *envp[])
 {
 	t_data	data;
 
@@ -56,7 +56,6 @@ static int	pipex(char *argv[], char *envp[])
 	get_commands(argv, envp, &data);
 	pipe_and_forks(envp, &data);
 	free_all(&data);
-	return (0);
 }
 
 int	main(int argc, char *argv[], char *envp[])
