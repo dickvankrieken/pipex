@@ -6,7 +6,7 @@
 /*   By: dvan-kri <dvan-kri@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/12 11:21:12 by dvan-kri      #+#    #+#                 */
-/*   Updated: 2022/01/15 10:21:53 by dvan-kri      ########   odam.nl         */
+/*   Updated: 2022/01/24 13:01:29 by dvan-kri      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	child_two(pid_t child2, t_data *data, char *envp[])
 {
 	if (child2 < 0)
 		error_handler("Fork error", data);
-	if (child2 == 0)
+	if (child2 == 0 && data->cmd1 != NULL)
 	{
 		if (dup2(data->fd1, STDIN_FILENO) == -1
 			|| dup2(data->end[1], STDOUT_FILENO) == -1)
@@ -35,10 +35,10 @@ void	child_one(pid_t child1, t_data *data, char *envp[])
 {
 	if (child1 < 0)
 		error_handler("Fork error", data);
-	if (child1 == 0)
+	if (child1 == 0 && data->cmd2 != NULL)
 	{
 		if (dup2(data->fd2, STDOUT_FILENO) == -1
-			|| dup2(data->end[0], STDIN_FILENO) == -1)
+			|| dup2(data->end[0], STDIN_FILENO) == -1) // in plaats van naar stdout gaat het naar fd2. In plaats van stdin, komt nu de read end van de pipe
 			error_handler("Dup2 error", data);
 		if (close(data->end[1]) == -1 || close(data->fd1))
 			return (error_handler("Close error", data));
