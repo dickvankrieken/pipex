@@ -6,7 +6,7 @@
 /*   By: dvan-kri <dvan-kri@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/03 15:58:41 by dvan-kri      #+#    #+#                 */
-/*   Updated: 2022/03/01 17:50:55 by dvan-kri      ########   odam.nl         */
+/*   Updated: 2022/03/01 18:21:50 by dvan-kri      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@
 #include "../includes/pipex.h"
 #include "../libftprintf/includes/ft_printf.h"
 
-// static void	exit_status(int status, t_data *data)
-// {
-// 	int	status_code;
+static void	exit_status(int status, t_data *data)
+{
+	int	status_code;
 
-// 	status_code = WEXITSTATUS(status);
-// 	free_all(data);
-// 	exit(status_code);
-// }
+	status_code = WEXITSTATUS(status);
+	free_all(data);
+	exit(status_code);
+}
 
 static void	child(int argc, char *envp[], t_data *data, int i)
 {
@@ -86,9 +86,8 @@ static void	pipex(int argc, char *argv[], char *envp[])
 	close(data.pipe_fd[0]);
 	close(data.pipe_fd[1]);
 	waitpid(pid, &status, 0);
-	free_all(&data);
-	// if (WIFEXITED)
-	// 	/* do something */
+	if (WIFEXITED(status))
+		exit_status(status, &data);
 }
 
 int	main(int argc, char *argv[], char *envp[])
