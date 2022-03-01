@@ -1,6 +1,6 @@
 NAME = pipex
 
-C_FILES = main.c children.c parse.c error.c free.c utils.c
+C_FILES = main.c parse.c free.c utils.c
 
 OBJ_FILES = $(addprefix $(OBJ_DIR)/, $(C_FILES:.c=.o))
 
@@ -18,10 +18,10 @@ $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
 
 $(NAME): $(OBJ_FILES) $(LIBFT)
-	$(CC) $(CFLAGS) -o $@ $^ libftprintf/libft.a
+	$(CC) $(CFLAGS) -fsanitize=address -o $@ $^ libftprintf/libft.a
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -g -c $< -o $@
 
 $(LIBFT):
 	make -C libftprintf
