@@ -6,7 +6,7 @@
 /*   By: dvan-kri <dvan-kri@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/03 15:59:20 by dvan-kri      #+#    #+#                 */
-/*   Updated: 2022/03/01 17:53:07 by dvan-kri      ########   odam.nl         */
+/*   Updated: 2022/01/18 13:30:30 by dvan-kri      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "../libftprintf/includes/libft.h"
 #include "../libftprintf/includes/ft_printf.h"
 
-static char	*try_access(char *argv, char **path_directories, t_data *data)
+static char	*try_access(t_data *data, char *argv, char **path_directories)
 {
 	char	*path;
 	char	*path_cmd;
@@ -39,7 +39,7 @@ static char	*try_access(char *argv, char **path_directories, t_data *data)
 	return (NULL);
 }
 
-static char	*check_cmd_paths(char *argv, char **path_directories, t_data *data)
+static char	*check_cmd_paths(t_data *data, char *argv, char **path_directories)
 {
 	char	*path_cmd;
 
@@ -52,7 +52,7 @@ static char	*check_cmd_paths(char *argv, char **path_directories, t_data *data)
 	}
 	else
 	{
-		path_cmd = try_access(argv, path_directories, data);
+		path_cmd = try_access(data, argv, path_directories);
 	}
 	return (path_cmd);
 }
@@ -76,26 +76,38 @@ char	**get_path_directories(char *envp[])
 	return (path_directories);
 }
 
-static char	*get_cmd_path(char *envp[], char *argv, t_data *data)
+static char	*get_cmd_path(t_data *data, char *envp[], char *argv)
 {
 	char	**path_directories;
 	char	*path;
 
 	path_directories = get_path_directories(envp);
-	path = check_cmd_paths(argv, path_directories, data);
+	path = check_cmd_paths(data, argv, path_directories);
 	free_path_directories(path_directories);
 	return (path);
 }
 
-void	get_commands(char *argv[], char *envp[], t_data *data, int i)
+void	get_commands(char *argv[], char *envp[], t_data *data)
 {
-	data->cmd_options = ft_split(argv[i], ' ');
-	if (data->cmd_options == NULL)
+	data->cmd1_options = ft_split(argv[2], ' ');
+	if (data->cmd1_options == NULL)
 		exit(1);
-	data->cmd = get_cmd_path(envp, data->cmd_options[0], data);
-	if (data->cmd == NULL)
+	data->cmd2_options = ft_split(argv[3], ' ');
+	if (data->cmd2_options == NULL)
 	{
-		ft_printf("pipex: command not found: %s\n", argv[i]);
+		free_all(data);
+		exit(1);
+	}
+	data->cmd1 = get_cmd_path(data, envp, data->cmd1_options[0]);
+	if (data->cmd1 == NULL)
+	{
+		ft_printf("pipex: command not found: %s\n", argv[2]);
+	}
+	data->cmd2 = get_cmd_path(data, envp, data->cmd2_options[0]);
+	if (data->cmd2 == NULL)
+	{
+		ft_printf("pipex: command not found: %s\n", argv[3]);
+		free_all(data);
 		exit(127);
 	}
 }
