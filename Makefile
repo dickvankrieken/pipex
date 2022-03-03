@@ -2,11 +2,15 @@ NAME = pipex
 
 BONUS_NAME = pipex_bonus
 
-C_FILES = main.c parse.c free.c utils.c children.c error.c
+MANDATORY_FILES = main.c
 
-BONUS_FILES = main.c parse.c free.c utils.c
+COMMON_FILES = parse.c free.c utils.c pipex.c
 
-OBJ_FILES = $(addprefix $(OBJ_DIR)/, $(C_FILES:.c=.o))
+BONUS_FILES = main_bonus.c utils_bonus.c
+
+MANDATORY_OBJ_FILES = $(addprefix $(OBJ_DIR)/, $(MANDATORY_FILES:.c=.o))
+
+COMMON_OBJ_FILES = $(addprefix $(OBJ_DIR)/, $(COMMON_FILES:.c=.o))
 
 BONUS_OBJ_FILES = $(addprefix $(BONUS_OBJ_DIR)/, $(BONUS_FILES:.c=.o))
 
@@ -32,11 +36,11 @@ $(OBJ_DIR):
 $(BONUS_OBJ_DIR):
 	@mkdir -p $(BONUS_OBJ_DIR)
 
-$(NAME): $(OBJ_FILES) $(LIBFT)
-	$(CC) $(CFLAGS) -fsanitize=address -o $@ $^ libftprintf/libft.a
+$(NAME): $(MANDATORY_OBJ_FILES) $(COMMON_OBJ_FILES) $(LIBFT)
+	$(CC) $(CFLAGS) -fsanitize=address -o $@ $^
 
-$(BONUS_NAME): $(BONUS_OBJ_FILES) $(LIBFT)
-	$(CC) $(CFLAGS) -fsanitize=address -o $@ $^ libftprintf/libft.a
+$(BONUS_NAME): $(COMMON_OBJ_FILES) $(BONUS_OBJ_FILES) $(LIBFT)
+	$(CC) $(CFLAGS) -fsanitize=address -o $@ $^
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	$(CC) $(CFLAGS) -g -c $< -o $@
@@ -49,10 +53,12 @@ $(LIBFT):
 
 clean:
 	rm -rf $(OBJ_DIR)
+	rm -rf $(BONUS_OBJ_DIR)
 	make clean -C libftprintf
 
 fclean: clean
 	rm -f $(NAME)
+	rm -f $(BONUS_NAME)
 	make fclean -C libftprintf
 
 re: fclean all

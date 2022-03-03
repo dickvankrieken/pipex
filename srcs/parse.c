@@ -6,7 +6,7 @@
 /*   By: dvan-kri <dvan-kri@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/03 15:59:20 by dvan-kri      #+#    #+#                 */
-/*   Updated: 2022/01/18 13:30:30 by dvan-kri      ########   odam.nl         */
+/*   Updated: 2022/03/03 15:33:37 by dvan-kri      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ char	**get_path_directories(char *envp[])
 	return (path_directories);
 }
 
-static char	*get_cmd_path(t_data *data, char *envp[], char *argv)
+char	*get_cmd_path(t_data *data, char *envp[], char *argv)
 {
 	char	**path_directories;
 	char	*path;
@@ -87,27 +87,15 @@ static char	*get_cmd_path(t_data *data, char *envp[], char *argv)
 	return (path);
 }
 
-void	get_commands(char *argv[], char *envp[], t_data *data)
+void	get_commands(char *argv[], char *envp[], t_data *data, int i)
 {
-	data->cmd1_options = ft_split(argv[2], ' ');
-	if (data->cmd1_options == NULL)
+	data->cmd_options = ft_split(argv[i], ' ');
+	if (data->cmd_options == NULL)
 		exit(1);
-	data->cmd2_options = ft_split(argv[3], ' ');
-	if (data->cmd2_options == NULL)
+	data->cmd = get_cmd_path(data, envp, data->cmd_options[0]);
+	if (data->cmd == NULL)
 	{
-		free_all(data);
-		exit(1);
-	}
-	data->cmd1 = get_cmd_path(data, envp, data->cmd1_options[0]);
-	if (data->cmd1 == NULL)
-	{
-		ft_printf("pipex: command not found: %s\n", argv[2]);
-	}
-	data->cmd2 = get_cmd_path(data, envp, data->cmd2_options[0]);
-	if (data->cmd2 == NULL)
-	{
-		ft_printf("pipex: command not found: %s\n", argv[3]);
-		free_all(data);
+		ft_printf("pipex: command not found: %s\n", argv[i]);
 		exit(127);
 	}
 }
