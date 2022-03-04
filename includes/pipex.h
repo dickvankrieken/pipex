@@ -6,7 +6,7 @@
 /*   By: dvan-kri <dvan-kri@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/03 15:58:26 by dvan-kri      #+#    #+#                 */
-/*   Updated: 2022/03/03 18:07:01 by dvan-kri      ########   odam.nl         */
+/*   Updated: 2022/03/04 18:48:48 by dvan-kri      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_data {
 	int		infile;
 	int		outfile;
 	int		temp_fd;
+	int		status;
 	char	*cmd;
 	char	**cmd_options;
 	int		pipe_fd[2];
