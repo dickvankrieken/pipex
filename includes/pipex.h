@@ -6,7 +6,7 @@
 /*   By: dvan-kri <dvan-kri@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/03 15:58:26 by dvan-kri      #+#    #+#                 */
-/*   Updated: 2022/03/04 18:48:48 by dvan-kri      ########   odam.nl         */
+/*   Updated: 2022/03/07 12:58:32 by dvan-kri      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,6 @@
 # define PIPEX_H
 
 # include <sys/types.h>
-
-/* typedef struct s_data { */
-/* 	int		fd1; */
-/* 	int		fd2; */
-/* 	char	*cmd1; */
-/* 	char	*cmd2; */
-/* 	char	**cmd1_options; */
-/* 	char	**cmd2_options; */
-/* 	int		end[2]; */
-/* }	t_data; */
 
 typedef struct s_data {
 	int		infile;
@@ -35,11 +25,25 @@ typedef struct s_data {
 	int		pipe_fd[2];
 }	t_data;
 
-
 // utils.c
 void	free_all(t_data *data);
 void	open_files(int argc, char *argv[], t_data *data);
 void	init_data(t_data *data);
+// utils2.c
+char	*ft_strjoin(char const *s1, char const *s2);
+size_t	ft_strlen(const char *s);
+size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
+void	ft_putstr_fd(char *s, int fd);
+// utils3.c
+void	*ft_calloc(size_t count, size_t size);
+char	*ft_strdup(const char *s1);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+// utils4.c
+void	ft_bzero(void *s, size_t n);
+// split.c
+char	**ft_split(char const *s, char c);
 // free.c
 void	free_path_directories(char **path_directories);
 // error.c

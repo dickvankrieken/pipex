@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   utils.c                                            :+:    :+:            */
+/*   utils_bonus.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: dvan-kri <dvan-kri@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/15 09:59:15 by dvan-kri      #+#    #+#                 */
-/*   Updated: 2022/03/03 15:25:44 by dvan-kri      ########   odam.nl         */
+/*   Updated: 2022/03/07 13:12:51 by dvan-kri      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include "../includes/pipex_bonus.h"
-#include "../libftprintf/includes/get_next_line.h"
 
 void	here_doc(int argc, char *argv[], char *envp[])
 {

@@ -6,14 +6,13 @@
 /*   By: dvan-kri <dvan-kri@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/03 15:59:20 by dvan-kri      #+#    #+#                 */
-/*   Updated: 2022/03/03 15:33:37 by dvan-kri      ########   odam.nl         */
+/*   Updated: 2022/03/07 12:52:48 by dvan-kri      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
+#include <stdlib.h>
 #include "../includes/pipex.h"
-#include "../libftprintf/includes/libft.h"
-#include "../libftprintf/includes/ft_printf.h"
 
 static char	*try_access(t_data *data, char *argv, char **path_directories)
 {
@@ -95,7 +94,8 @@ void	get_commands(char *argv[], char *envp[], t_data *data, int i)
 	data->cmd = get_cmd_path(data, envp, data->cmd_options[0]);
 	if (data->cmd == NULL)
 	{
-		ft_printf("pipex: command not found: %s\n", argv[i]);
+		ft_putstr_fd("pipex: command not found: ", 1);
+		ft_putstr_fd(argv[i], 1);
 		exit(127);
 	}
 }
