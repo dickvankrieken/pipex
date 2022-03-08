@@ -6,7 +6,7 @@
 /*   By: dvan-kri <dvan-kri@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/03 15:58:26 by dvan-kri      #+#    #+#                 */
-/*   Updated: 2022/03/07 12:58:32 by dvan-kri      ########   odam.nl         */
+/*   Updated: 2022/03/08 13:44:06 by dvan-kri      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ typedef struct s_data {
 	int		outfile;
 	int		temp_fd;
 	int		status;
+	int		here_doc;
 	char	*cmd;
 	char	**cmd_options;
 	int		pipe_fd[2];
@@ -50,7 +51,12 @@ void	free_path_directories(char **path_directories);
 void	error_handler(char *message, t_data *data);
 // parse.c
 void	get_commands(char *argv[], char *envp[], t_data *data, int i);
+char	*get_cmd_path(t_data *data, char *envp[], char *argv);
 // pipex.c
 void	pipex(int argc, char *argv[], char *envp[]);
+void	fork_loop(int argc, char *argv[], char *envp[], t_data *data);
+void	parent(t_data *data);
+void	child(int argc, char *envp[], t_data *data, int i);
+void	exit_status(t_data *data);
 
 #endif

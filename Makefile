@@ -38,7 +38,7 @@ $(NAME): $(MANDATORY_OBJ_FILES) $(COMMON_OBJ_FILES)
 	$(CC) $(CFLAGS) -fsanitize=address -o $@ $^
 
 $(BONUS_NAME): $(COMMON_OBJ_FILES) $(BONUS_OBJ_FILES)
-	$(CC) $(CFLAGS) -fsanitize=address -o $@ $^
+	$(CC) $(CFLAGS) -fsanitize=address -o $(NAME) $^
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	$(CC) $(CFLAGS) -g -c $< -o $@
@@ -52,6 +52,5 @@ clean:
 
 fclean: clean
 	rm -f $(NAME)
-	rm -f $(BONUS_NAME)
 
 re: fclean all

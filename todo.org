@@ -1,8 +1,0 @@
-#+TITLE: Pipex TODO's
-* Heredoc
-  usage:
-  ./pipex_bonus here_doc LIMITER cmd cmd1 outfile
-
-  is het zelfde als:
-  cmd << LIMITER | cmd1 >> file
-* norm

@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include "../includes/pipex.h"
 
-static void	exit_status(t_data *data)
+void	exit_status(t_data *data)
 {
 	int	status_code;
 
@@ -11,7 +11,8 @@ static void	exit_status(t_data *data)
 	free_all(data);
 	exit(status_code);
 }
-static void	child(int argc, char *envp[], t_data *data, int i)
+
+void	child(int argc, char *envp[], t_data *data, int i)
 {
 	if (dup2(data->temp_fd, 0) == -1)
 		error_handler("Dup2 error", data);
@@ -36,7 +37,7 @@ static void	child(int argc, char *envp[], t_data *data, int i)
 	execve(data->cmd, data->cmd_options, envp);
 }
 
-static void	parent(t_data *data)
+void	parent(t_data *data)
 {
 	wait(&data->status);
 	dup2(data->pipe_fd[0], data->temp_fd);
@@ -44,7 +45,7 @@ static void	parent(t_data *data)
 	close(data->pipe_fd[1]);
 }
 
-static void	fork_loop(int argc, char *argv[], char *envp[], t_data *data)
+void	fork_loop(int argc, char *argv[], char *envp[], t_data *data)
 {
 	int		i;
 	pid_t	pid;
@@ -66,7 +67,6 @@ static void	fork_loop(int argc, char *argv[], char *envp[], t_data *data)
 	}
 	close(data->pipe_fd[0]);
 	close(data->pipe_fd[1]);
-//	waitpid(pid, &status, 0);
 	if (WIFEXITED(data->status))
 		exit_status(data);
 }
