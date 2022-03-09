@@ -39,7 +39,6 @@ void	child(int argc, char *envp[], t_data *data, int i)
 
 void	parent(t_data *data)
 {
-	wait(&data->status);
 	dup2(data->pipe_fd[0], data->temp_fd);
 	close(data->pipe_fd[0]);
 	close(data->pipe_fd[1]);
@@ -67,6 +66,7 @@ void	fork_loop(int argc, char *argv[], char *envp[], t_data *data)
 	}
 	close(data->pipe_fd[0]);
 	close(data->pipe_fd[1]);
+	waitpid(pid, &data->status, 0);
 	if (WIFEXITED(data->status))
 		exit_status(data);
 }

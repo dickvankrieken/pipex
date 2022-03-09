@@ -6,7 +6,7 @@
 /*   By: dvan-kri <dvan-kri@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/03 15:58:41 by dvan-kri      #+#    #+#                 */
-/*   Updated: 2022/03/08 17:06:51 by dvan-kri      ########   odam.nl         */
+/*   Updated: 2022/03/09 11:36:37 by dvan-kri      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	pipex_bonus(int argc, char *argv[], char *envp[])
 	}
 	else
 	{
-		open_files_bonus(argc, argv, &data);
+		open_files(argc, argv, &data);
 		fork_loop(argc, argv, envp, &data);
 	}
 }
