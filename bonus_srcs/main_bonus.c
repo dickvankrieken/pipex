@@ -6,7 +6,7 @@
 /*   By: dvan-kri <dvan-kri@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/03 15:58:41 by dvan-kri      #+#    #+#                 */
-/*   Updated: 2022/03/09 11:36:37 by dvan-kri      ########   odam.nl         */
+/*   Updated: 2022/03/10 12:37:48 by dvan-kri      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,7 @@ static void	child_heredoc(int argc, char *envp[], t_data *data, int i)
 	if (dup2(data->temp_fd, 0) == -1)
 		error_handler("Dup2 error", data);
 	close(data->temp_fd);
-	if (i == 3 && argc > 0)
-	{
-		if (dup2(data->pipe_fd[1], 1) == -1)
-			error_handler("Dup2 error", data);
-	}
-	else if (i < argc - 2)
+	if (i == 3 || i < argc - 2)
 	{
 		if (dup2(data->pipe_fd[1], 1) == -1)
 			error_handler("Dup2 error", data);

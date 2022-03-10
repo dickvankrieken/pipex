@@ -17,12 +17,7 @@ void	child(int argc, char *envp[], t_data *data, int i)
 	if (dup2(data->temp_fd, 0) == -1)
 		error_handler("Dup2 error", data);
 	close(data->temp_fd);
-	if (i == 2)
-	{
-		if (dup2(data->pipe_fd[1], 1) == -1)
-			error_handler("Dup2 error", data);
-	}
-	else if (i < argc - 2)
+	if (i == 2 || i < argc - 2)
 	{
 		if (dup2(data->pipe_fd[1], 1) == -1)
 			error_handler("Dup2 error", data);
