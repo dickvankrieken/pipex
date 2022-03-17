@@ -35,10 +35,10 @@ $(BONUS_OBJ_DIR):
 	@mkdir -p $(BONUS_OBJ_DIR)
 
 $(NAME): $(MANDATORY_OBJ_FILES) $(COMMON_OBJ_FILES)
-	$(CC) $(CFLAGS) -fsanitize=address -o $@ $^
+	$(CC) $(CFLAGS) -o $@ $^
 
 $(BONUS_NAME): $(COMMON_OBJ_FILES) $(BONUS_OBJ_FILES)
-	$(CC) $(CFLAGS) -fsanitize=address -o $(NAME) $^
+	$(CC) $(CFLAGS) -o $(NAME) $^
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	$(CC) $(CFLAGS) -g -c $< -o $@
